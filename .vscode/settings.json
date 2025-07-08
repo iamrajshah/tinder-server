@@ -1,0 +1,50 @@
+{
+  // Enable CodeLens for references
+  "javascript.referencesCodeLens.enabled": true,
+  "typescript.referencesCodeLens.enabled": true,
+
+  // Enable TypeScript strict null checks and other strict options
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+
+  // Enable auto-imports for TypeScript
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifierEnding": "auto",
+
+  // Enable formatting and linting
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Use Prettier for formatting
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  // Enable IntelliSense and suggestions
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.completeFunctionCalls": true,
+
+  // Enable inline error checking
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+
+  // Enable better navigation and IntelliSense
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Enable breadcrumbs for better navigation
+  "breadcrumbs.enabled": true,
+
+  // Enable TypeScript inlay hints for parameter names and types
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+
+  // Enable better error reporting
+  "typescript.tsserver.log": "verbose",
+
+  // Enable file watching for large projects
+  "files.watcherExclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "CoenraadS.bracket-pair-colorizer-2",
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "eamodio.gitlens",
+    "msjsdiag.debugger-for-chrome",
+    "Gruntfuggly.todo-tree",
+    "visualstudioexptteam.vscodeintellico",
+    "ms-vscode.vscode-typescript-next"
+  ]
+}

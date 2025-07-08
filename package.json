@@ -1,0 +1,29 @@
+{
+  "name": "tinder-server",
+  "version": "1.0.0",
+  "description": "This is backend for dev tinder app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamrajshah/tinder-server.git"
+  },
+  "keywords": [
+    "nodejs",
+    "js"
+  ],
+  "author": "Rajesh Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamrajshah/tinder-server/issues"
+  },
+  "homepage": "https://github.com/iamrajshah/tinder-server#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
