@@ -1,7 +1,8 @@
 const express = require("express");
 const connectDb = require("./config/database"); // Ensure database connection is established
+const { validateSignup, validateLogin } = require("./utils"); // Import utility functions if needed
 const User = require("./models/user");
-const e = require("express");
+const bcrypt = require("bcrypt"); // Import bcrypt for password hashing
 const app = express();
 
 app.use(express.json()); // Middleware to parse JSON request bodies
@@ -29,15 +30,47 @@ app.use(express.json()); // Middleware to parse JSON request bodies
 // });
 
 app.post("/signup", async (req, res) => {
-  const newUser = new User(req.body);
-
+  // Validate the request body
   try {
+    validateSignup(req);
+
+    const { firstName, lastName, emailId, password } = req.body;
+
+    const passwordHash = await bcrypt.hashSync(password, 10); // Hash the password
+    const newUser = new User({
+      firstName,
+      lastName,
+      emailId,
+      password: passwordHash,
+    });
+
     await newUser.save();
     res.status(201).json({ message: "User created successfully!" });
   } catch (error) {
     res
       .status(500)
       .json({ message: "Error creating user", error: error.message });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    validateLogin(req);
+    const { emailId, password } = req.body;
+    const user = await User.findOne({ emailId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    } else {
+      res.status(200).json({ message: "Login successful", user });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error while login", error: error.message });
   }
 });
 
