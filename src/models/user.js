@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken"); // Import jsonwebtoken for token handling
+const bcrypt = require("bcrypt"); // Import bcrypt for password hashing
+
 const userSchema = mongoose.Schema(
   {
     firstName: {
@@ -68,6 +71,20 @@ const userSchema = mongoose.Schema(
     timestamps: true, // Automatically add createdAt and updatedAt fields
   }
 );
+
+userSchema.methods.getJWT = async function () {
+  const token = await jwt.sign({ _id: this._id }, "VERYSECRETPA$$WORD", {
+    expiresIn: "1h",
+  });
+
+  return token;
+};
+
+userSchema.methods.validatePassword = async function (password) {
+  // Compare the provided password with the stored password
+  const isMatch = await bcrypt.compare(password, this.password);
+  return isMatch;
+};
 
 const User = mongoose.model("User", userSchema);
 
