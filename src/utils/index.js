@@ -19,7 +19,6 @@ const validateSignup = (req) => {
 };
 
 const validateLogin = (req) => {
-  console.log(req.body);
   const { emailId, password } = req.body;
 
   if (!emailId || !password) {
@@ -37,7 +36,37 @@ const validateLogin = (req) => {
   }
 };
 
+const validateEditProfile = (req) => {
+  const allowedFields = ["photoUrl", "bio", "skills", "firstName", "lastName"];
+  console.log(Object.keys(req.body));
+  const result = Object.keys(req.body).every((key) =>
+    allowedFields.includes(key)
+  );
+  if (!result) {
+    throw new Error("Invalid fields in request body");
+  }
+  if (req.body.photoUrl && !validator.isURL(req.body.photoUrl)) {
+    throw new Error("Invalid photo URL format");
+  }
+};
+
+const validateChangePassword = (req) => {
+  const { oldPassword, newPassword } = req.body;
+  const { user } = req;
+  if (!oldPassword || !newPassword) {
+    throw new Error("Old password and new password are required");
+  }
+
+  if (!validator.isStrongPassword(newPassword)) {
+    throw new Error(
+      "New password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one symbol."
+    );
+  }
+};
+
 module.exports = {
   validateSignup,
   validateLogin,
+  validateEditProfile,
+  validateChangePassword,
 };
