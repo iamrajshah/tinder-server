@@ -72,6 +72,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
+userSchema.index({ firstName: 1, lastName: 1 }); // Create an index on firstName and lastName for faster queries
 userSchema.methods.getJWT = async function () {
   const token = await jwt.sign({ _id: this._id }, "VERYSECRETPA$$WORD", {
     expiresIn: "1h",
