@@ -6,6 +6,7 @@ const app = express();
 const authRouter = require("./routes/auth"); // Import authentication routes
 const profileRouter = require("./routes/profile"); // Import profile routes
 const requestRouter = require("./routes/request"); // Import request routes
+const userRouter = require("./routes/user"); // Import request routes
 
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(cookieParser()); // Middleware to parse cookies from the request
@@ -13,6 +14,7 @@ app.use(cookieParser()); // Middleware to parse cookies from the request
 app.use("/auth", authRouter); // Mount authentication routes
 app.use("/profile", profileRouter); // Mount profile routes
 app.use("/request", requestRouter); // Mount request routes
+app.use("/user", userRouter); // Mount request routes
 
 connectDb()
   .then(() => {
