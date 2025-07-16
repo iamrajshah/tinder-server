@@ -37,7 +37,15 @@ const validateLogin = (req) => {
 };
 
 const validateEditProfile = (req) => {
-  const allowedFields = ["photoUrl", "bio", "skills", "firstName", "lastName"];
+  const allowedFields = [
+    "photoUrl",
+    "about",
+    "skills",
+    "firstName",
+    "lastName",
+    "age",
+    "gender",
+  ];
   console.log(Object.keys(req.body));
   const result = Object.keys(req.body).every((key) =>
     allowedFields.includes(key)
