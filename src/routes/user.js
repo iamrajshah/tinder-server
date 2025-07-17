@@ -5,7 +5,7 @@ const { userAuth } = require("../middleware/auth"); // Import user authenticatio
 const ConnectionRequestModel = require("../models/connectionRequest");
 const User = require("../models/user");
 
-const userAllowedField = "firstName lastName skills about photoUrl";
+const userAllowedField = "firstName lastName skills about photoUrl age gender";
 // get all pending conenction requests
 userRouter.get("/connections/received", userAuth, async (req, res) => {
   try {

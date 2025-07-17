@@ -67,7 +67,6 @@ requestRouter.post("/review/:status/:requestId", userAuth, async (req, res) => {
     const { user: loggedInUser } = req;
     const { status, requestId } = req.params;
 
-    console.log(loggedInUser);
     // Check if status is valid
     const allowedStatus = ["accepted", "rejected"];
     if (!allowedStatus.includes(status)) {
@@ -79,6 +78,7 @@ requestRouter.post("/review/:status/:requestId", userAuth, async (req, res) => {
       toUserId: loggedInUser._id,
       status: "interested",
     });
+    console.log(requestExist);
     // Check if request exist
     if (!requestExist) {
       return res
@@ -88,11 +88,13 @@ requestRouter.post("/review/:status/:requestId", userAuth, async (req, res) => {
 
     requestExist.status = status; // Update the status
     const updatedRequest = await requestExist.save();
+    console.log(updatedRequest);
     res.json({
       message: `Request ${status} successfully`,
       data: updatedRequest,
     });
   } catch (error) {
+    console.log(error);
     res
       .status(500)
       .json({ message: `Something went wrong + ${error.message}` });
