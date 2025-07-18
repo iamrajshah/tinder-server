@@ -4,7 +4,6 @@ const instance = require("../utils/razorpay");
 const PaymentModel = require("../models/payment");
 const { membershipAmount } = require("../utils/constant");
 const {
-  validatePaymentVerification,
   validateWebhookSignature,
 } = require("razorpay/dist/utils/razorpay-utils");
 const User = require("../models/user");
@@ -59,19 +58,22 @@ paymentRouter.post("/order", userAuth, async (req, res) => {
 paymentRouter.post("/webhook", async (req, res) => {
   try {
     console.log(JSON.stringify(req.header));
-    const signature = req.get["X-Razorpay-Signature"];
+    const webhookSignature = req.get("X-Razorpay-Signature");
     const { event, payload } = req.body;
     const { order_id, status } = payload?.payment.entity;
     console.log(JSON.stringify(req.body), signature);
     const result = validateWebhookSignature(
       JSON.stringify(req.body),
-      signature,
+      webhookSignature,
       process.env.RAZORPAY_WEBHOOK_SECRET
     );
 
     console.log(result, "result of validation");
-    if (!result) res.status(400).json({ message: "Validation failed" });
+    if (!result) {
+      res.status(400).json({ message: "Validation failed" });
+    }
 
+    console.log("Verification success");
     const paymentfromDB = await PaymentModel.findOne({
       orderId: order_id,
     });
@@ -93,7 +95,7 @@ paymentRouter.post("/webhook", async (req, res) => {
 
     res.status(200).json({ message: "Webhook called" });
   } catch (error) {
-    console.log("Error while validating payment", error);
+    console.log("Error while validating payment", JSON.stringify(error));
   }
 });
 module.exports = paymentRouter;

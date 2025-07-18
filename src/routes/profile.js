@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt"); // Import bcrypt for password hashing
 
 profileRouter.get("/view", userAuth, async (req, res) => {
   const { user } = req; // Get all cookies
-  console.log("User from auth middleware:", user);
   res.status(200).json(user);
 });
 
