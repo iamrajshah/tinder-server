@@ -66,6 +66,13 @@ const userSchema = mongoose.Schema(
       type: [String],
       max: 10, // Maximum of 10 skills
     },
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    plan: {
+      type: String,
+    },
   },
   {
     timestamps: true, // Automatically add createdAt and updatedAt fields

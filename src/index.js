@@ -3,10 +3,6 @@ const connectDb = require("./config/database"); // Ensure database connection is
 const cookieParser = require("cookie-parser"); // Import cookie-parser for handling cookies
 const app = express();
 
-const authRouter = require("./routes/auth"); // Import authentication routes
-const profileRouter = require("./routes/profile"); // Import profile routes
-const requestRouter = require("./routes/request"); // Import request routes
-const userRouter = require("./routes/user"); // Import request routes
 const cors = require("cors");
 
 require("dotenv").config();
@@ -19,10 +15,17 @@ app.use(
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(cookieParser()); // Middleware to parse cookies from the request
 
+const authRouter = require("./routes/auth"); // Import authentication routes
+const profileRouter = require("./routes/profile"); // Import profile routes
+const requestRouter = require("./routes/request"); // Import request routes
+const userRouter = require("./routes/user"); // Import request routes
+const paymentRouter = require("./routes/payment");
+
 app.use("/", authRouter); // Mount authentication routes
 app.use("/profile", profileRouter); // Mount profile routes
 app.use("/request", requestRouter); // Mount request routes
 app.use("/user", userRouter); // Mount request routes
+app.use("/payment", paymentRouter); // Mount request routes
 
 connectDb()
   .then(() => {
