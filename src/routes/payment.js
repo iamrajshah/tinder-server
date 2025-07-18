@@ -57,11 +57,10 @@ paymentRouter.post("/order", userAuth, async (req, res) => {
 
 paymentRouter.post("/webhook", async (req, res) => {
   try {
-    console.log(JSON.stringify(req.header));
     const webhookSignature = req.get("X-Razorpay-Signature");
     const { event, payload } = req.body;
     const { order_id, status } = payload?.payment.entity;
-    console.log(JSON.stringify(req.body), signature);
+    console.log(JSON.stringify(req.body), webhookSignature);
     const result = validateWebhookSignature(
       JSON.stringify(req.body),
       webhookSignature,
@@ -95,7 +94,7 @@ paymentRouter.post("/webhook", async (req, res) => {
 
     res.status(200).json({ message: "Webhook called" });
   } catch (error) {
-    console.log("Error while validating payment", JSON.stringify(error));
+    console.log("Error while validating payment", error);
   }
 });
 module.exports = paymentRouter;
