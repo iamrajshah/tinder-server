@@ -7,7 +7,7 @@ const userAuth = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: "Unauthorized access" });
     }
-    const decodedToken = await jwt.verify(token, "VERYSECRETPA$$WORD");
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
     if (!decodedToken || !decodedToken._id) {
       return res.status(401).json({ message: "Invalid token" });
     }
