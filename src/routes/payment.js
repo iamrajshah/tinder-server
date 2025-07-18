@@ -77,11 +77,9 @@ paymentRouter.post("/webhook", async (req, res) => {
     });
     paymentfromDB.status = status;
 
-    console.log("Getting payment from db", paymentfromDB);
     await paymentfromDB.save();
 
     const user = await User.findOne({ _id: paymentfromDB.userId });
-    console.log("Updating user ", user);
     user.isPremium = true;
     user.plan = paymentfromDB.notes.plan;
 
@@ -95,5 +93,11 @@ paymentRouter.post("/webhook", async (req, res) => {
   } catch (error) {
     console.log("Error while validating payment", error);
   }
+});
+
+paymentRouter.get("/premium/verify", userAuth, async (req, res) => {
+  const user = req.user.toJSON();
+  if (user.isPremium) return res.status(200).json({ isPremium: true });
+  return res.status(200).json({ isPremium: false });
 });
 module.exports = paymentRouter;
