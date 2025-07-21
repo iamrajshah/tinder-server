@@ -66,7 +66,6 @@ paymentRouter.post("/webhook", async (req, res) => {
       process.env.RAZORPAY_WEBHOOK_SECRET
     );
 
-    console.log(result, "result of validation");
     if (!result) {
       res.status(400).json({ message: "Validation failed" });
     }

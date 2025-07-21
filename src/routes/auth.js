@@ -41,7 +41,6 @@ authRouter.post("/login", async (req, res) => {
     validateLogin(req);
     const { emailId, password } = req.body;
     const user = await User.findOne({ emailId });
-    console.log("User found:", user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -50,7 +49,6 @@ authRouter.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     } else {
       const token = await user.getJWT(); // Generate JWT token using the method defined in the User model
-      console.log("Generated JWT Token:", token);
       res.cookie("token", token, {
         expires: new Date(Date.now() + 3600000), // 1 hour
       });
