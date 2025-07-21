@@ -5,7 +5,8 @@ const { userAuth } = require("../middleware/auth"); // Import user authenticatio
 const ConnectionRequestModel = require("../models/connectionRequest");
 const User = require("../models/user");
 
-const userAllowedField = "firstName lastName skills about photoUrl age gender";
+const userAllowedField =
+  "firstName lastName skills about photoUrl age gender isPremium";
 // get all pending conenction requests
 userRouter.get("/connections/received", userAuth, async (req, res) => {
   try {
@@ -15,7 +16,6 @@ userRouter.get("/connections/received", userAuth, async (req, res) => {
       toUserId: loggedInUser._id,
       status: "interested",
     }).populate("fromUserId", userAllowedField);
-    console.log(allRequest);
     res.status(200).json({ allRequest });
     return;
   } catch (error) {

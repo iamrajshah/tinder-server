@@ -78,7 +78,6 @@ requestRouter.post("/review/:status/:requestId", userAuth, async (req, res) => {
       toUserId: loggedInUser._id,
       status: "interested",
     });
-    console.log(requestExist);
     // Check if request exist
     if (!requestExist) {
       return res
@@ -88,7 +87,6 @@ requestRouter.post("/review/:status/:requestId", userAuth, async (req, res) => {
 
     requestExist.status = status; // Update the status
     const updatedRequest = await requestExist.save();
-    console.log(updatedRequest);
     res.json({
       message: `Request ${status} successfully`,
       data: updatedRequest,

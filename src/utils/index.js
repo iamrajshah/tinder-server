@@ -46,7 +46,6 @@ const validateEditProfile = (req) => {
     "age",
     "gender",
   ];
-  console.log(Object.keys(req.body));
   const result = Object.keys(req.body).every((key) =>
     allowedFields.includes(key)
   );
